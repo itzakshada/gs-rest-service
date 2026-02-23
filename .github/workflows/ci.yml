@@ -21,12 +21,18 @@ jobs:
           cache: maven
 
       - name: Build + Test + Package
-        run: 
+        run: |
           cd complete
           mvn -B clean package
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: spring-boot-jar
+          path: complete/target/*.jar
 
       - name: Upload JaCoCo report
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: complete/target/site/jacoco    
+          path: complete/target/site/jacoco
